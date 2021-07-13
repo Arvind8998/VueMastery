@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <link rel="stylesheet" href="./assets/CSS//index.css" />
+  </head>
+  <body>
+    <div id="app">
+      <p>{{ product}}</p>
+      <!-- <img v-bind:src ="image" /> -->
+      <img class="imgContainer" :src="image" />
+      <!-- <a :href="googleWebsite" target="_blank">Google</a> -->
+      <!-- <p v-if="inStock">In Stock</p>
+        <p v-else>Out of Stock</p> -->
+      <!-- <p v-show="inStock">In Stock</p> -->
+      <p v-if="invetory >100">In Stock Inventory</p>
+      <p v-else-if="invetory <= 10 && invetory >0">Inventory Present</p>
+      <p v-else>Out of Stock</p>
+      <ul>
+        <li v-for="detail in details">{{detail}}</li>
+      </ul>
+      <ul>
+        <li
+          v-for="variant in variants"
+          v-bind:key="variant.id"
+          @mouseover="changeImage(variant.image)"
+          :class = "'color-circle toggleColors'"
+          :style="{...toggleStyle, backgroundColor: variant.color}"
+        >
+        </li>
+      </ul>
+      <!-- <button v-on:click="handleCart">Add to Cart</button> -->
+      <button
+        class="button"
+        :class="[inStock ? 'activeClass' : 'disabledButton']"
+        :class ="{disabledButton : !inStock}"
+        @click="handleCart"
+        :disabled="!inStock"
+      >
+        Add to Cart
+      </button>
+
+      <span>{{ cart}}</span>
+    </div>
+
+    <!-- Import app -->
+    <script src="./main.js"></script>
+
+    <!-- Mount app -->
+    <script>
+      const mountedApp = app.mount("#app")
+    </script>
+  </body>
+</html>
